@@ -63,8 +63,12 @@
               <input id="price" name="price" type="number" min="1" required placeholder="499" />
             </div>
             <div class="field-group">
-              <label for="sku">SKU / Code</label>
-              <input id="sku" name="sku" type="text" placeholder="HOV-KR-001" />
+              <label for="offerPrice">Offer Price (₹)</label>
+              <input id="offerPrice" name="offerPrice" type="number" min="1" placeholder="399" />
+            </div>
+            <div class="field-group">
+              <label for="sizes">Size Options</label>
+              <input id="sizes" name="sizes" type="text" placeholder="S, M, L, XL" />
             </div>
             <div class="field-group full-width">
               <label for="shortDescription">Short Description</label>
@@ -72,7 +76,15 @@
             </div>
             <div class="field-group full-width">
               <label for="imageUrl">Image URL</label>
-              <input id="imageUrl" name="imageUrl" type="url" required placeholder="https://example.com/image.jpg" />
+              <input id="imageUrl" name="imageUrl" type="url" placeholder="https://example.com/image.jpg" />
+            </div>
+            <div class="field-group full-width">
+              <label for="imageFile">Upload Image</label>
+              <input id="imageFile" name="imageFile" type="file" accept="image/*" />
+            </div>
+            <div class="field-group full-width">
+              <label for="videoFile">Upload Video</label>
+              <input id="videoFile" name="videoFile" type="file" accept="video/*" />
             </div>
             <div class="field-group full-width">
               <label for="material">Material</label>
