@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>House Of Viyara | Admin Panel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header admin-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">HOUSE OF VIYARA</a>
+      <nav class="main-nav" aria-label="Admin navigation">
+        <a href="index.html">Home</a>
+        <a href="admin.html" aria-current="page">Admin</a>
+      </nav>
+    </div>
+  </header>
+  <main class="admin-page">
+    <section class="admin-hero">
+      <div class="container admin-hero-grid">
+        <div>
+          <p class="section-label">Admin Panel</p>
+          <h1>Add new products for House of Viyara</h1>
+          <p>Fill in the complete product details below to keep the catalogue updated for your Indian fashion brand.</p>
+        </div>
+        <div class="admin-help-card">
+          <h2>Product details to include</h2>
+          <ul>
+            <li>Product name, category, and price</li>
+            <li>High-quality image URL</li>
+            <li>Material, fit, care instructions, and delivery time</li>
+            <li>Short description and a detailed product story</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="admin-panel">
+      <div class="container admin-form-card">
+        <form id="productForm">
+          <div class="admin-grid">
+            <div class="field-group">
+              <label for="productName">Product Name</label>
+              <input id="productName" name="productName" type="text" required placeholder="Sunlit Embroidered Kurti" />
+            </div>
+            <div class="field-group">
+              <label for="category">Category</label>
+              <select id="category" name="category" required>
+                <option value="Kurti">Kurti</option>
+                <option value="Maxis">Maxis</option>
+                <option value="Cord Sets">Cord Sets</option>
+                <option value="Kurti Sets">Kurti Sets</option>
+                <option value="Pure Cotton">Pure Cotton</option>
+                <option value="New Arrivals">New Arrivals</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="price">Price (₹)</label>
+              <input id="price" name="price" type="number" min="1" required placeholder="499" />
+            </div>
+            <div class="field-group">
+              <label for="sku">SKU / Code</label>
+              <input id="sku" name="sku" type="text" placeholder="HOV-KR-001" />
+            </div>
+            <div class="field-group full-width">
+              <label for="shortDescription">Short Description</label>
+              <input id="shortDescription" name="shortDescription" type="text" required placeholder="Soft cotton kurti with tonal embroidery." />
+            </div>
+            <div class="field-group full-width">
+              <label for="imageUrl">Image URL</label>
+              <input id="imageUrl" name="imageUrl" type="url" required placeholder="https://example.com/image.jpg" />
+            </div>
+            <div class="field-group full-width">
+              <label for="material">Material</label>
+              <input id="material" name="material" type="text" placeholder="Premium cotton blend" />
+            </div>
+            <div class="field-group full-width">
+              <label for="fit">Fit</label>
+              <input id="fit" name="fit" type="text" placeholder="Regular fit" />
+            </div>
+            <div class="field-group full-width">
+              <label for="care">Care Instructions</label>
+              <input id="care" name="care" type="text" placeholder="Machine wash cold" />
+            </div>
+            <div class="field-group full-width">
+              <label for="delivery">Delivery Time</label>
+              <input id="delivery" name="delivery" type="text" placeholder="3-5 business days" />
+            </div>
+            <div class="field-group full-width">
+              <label for="fullDescription">Full Product Description</label>
+              <textarea id="fullDescription" name="fullDescription" rows="5" placeholder="Describe the product features, styling tips, and why it fits the House of Viyara brand."></textarea>
+            </div>
+            <div class="field-group full-width">
+              <label for="tags">Tags</label>
+              <input id="tags" name="tags" type="text" placeholder="ethnic, festive, summer" />
+            </div>
+            <div class="field-group full-width field-check">
+              <label>
+                <input id="inStock" name="inStock" type="checkbox" checked /> In stock
+              </label>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Add Product</button>
+            <button type="reset" class="btn btn-secondary">Clear</button>
+          </div>
+          <p id="formMessage" class="form-message"></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="admin-preview">
+      <div class="container section-head">
+        <h2>Saved Products</h2>
+        <p class="section-copy">All products added during this session are shown here. These are stored locally in the browser.</p>
+      </div>
+      <div id="productPreview" class="product-preview-grid"></div>
+    </section>
+  </main>
+  <script src="admin.js"></script>
+</body>
+</html>
