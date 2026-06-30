@@ -21,11 +21,15 @@ function readFileAsDataURL(file) {
   });
 }
 
+function readFilesAsDataURLs(files) {
+  return Promise.all(Array.from(files).map(file => readFileAsDataURL(file)));
+}
+
 function renderProducts() {
   const products = getProducts();
   preview.innerHTML = products.length ? products.map(product => `
     <article class="product-card preview-card">
-      <img src="${product.imageUrl}" alt="${product.productName}" />
+      <img src="${(product.imageUrls && product.imageUrls.length && product.imageUrls[0]) || product.imageUrl || 'https://via.placeholder.com/400x300?text=No+Image'}" alt="${product.productName}" />
       <div class="product-info">
         <p class="product-category">${product.category}</p>
         <h3>${product.productName}</h3>
@@ -39,6 +43,8 @@ function renderProducts() {
           `}
         </div>
         ${product.sizes ? `<p class="product-sizes">Sizes: ${product.sizes}</p>` : ''}
+        ${product.imageUrls && product.imageUrls.length > 1 ? `<p class="media-count">${product.imageUrls.length} images uploaded</p>` : ''}
+        ${product.videoUrls && product.videoUrls.length ? `<p class="media-count">${product.videoUrls.length} video${product.videoUrls.length > 1 ? 's' : ''} uploaded</p>` : ''}
       </div>
     </article>
   `).join('') : '<p class="empty-state">No products added yet.</p>';
@@ -49,15 +55,32 @@ form.addEventListener('submit', async (event) => {
 
   const data = new FormData(form);
   const imageUrlValue = data.get('imageUrl').trim();
-  let imageUrl = imageUrlValue;
-  let videoUrl = '';
+  const imageFiles = imageFileInput.files;
+  const videoFiles = videoFileInput.files;
+  const maxImages = 15;
+  const maxVideos = 8;
 
-  if (imageFileInput.files.length) {
-    imageUrl = await readFileAsDataURL(imageFileInput.files[0]);
+  if (imageFiles.length > maxImages) {
+    message.textContent = `Upload up to ${maxImages} images only.`;
+    message.classList.add('error');
+    return;
   }
 
-  if (videoFileInput.files.length) {
-    videoUrl = await readFileAsDataURL(videoFileInput.files[0]);
+  if (videoFiles.length > maxVideos) {
+    message.textContent = `Upload up to ${maxVideos} videos only.`;
+    message.classList.add('error');
+    return;
+  }
+
+  let imageUrls = imageUrlValue ? [imageUrlValue] : [];
+  let videoUrls = [];
+
+  if (imageFiles.length) {
+    imageUrls = await readFilesAsDataURLs(imageFiles);
+  }
+
+  if (videoFiles.length) {
+    videoUrls = await readFilesAsDataURLs(videoFiles);
   }
 
   const product = {
@@ -67,10 +90,9 @@ form.addEventListener('submit', async (event) => {
     offerPrice: data.get('offerPrice').trim(),
     sizes: data.get('sizes').trim(),
     shortDescription: data.get('shortDescription').trim(),
-    imageUrl: imageUrl,
-    videoUrl: videoUrl,
+    imageUrls: imageUrls,
+    videoUrls: videoUrls,
     material: data.get('material').trim(),
-    fit: data.get('fit').trim(),
     care: data.get('care').trim(),
     delivery: data.get('delivery').trim(),
     fullDescription: data.get('fullDescription').trim(),
